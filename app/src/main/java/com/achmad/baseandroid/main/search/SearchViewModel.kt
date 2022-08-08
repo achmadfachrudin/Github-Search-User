@@ -1,4 +1,4 @@
-package com.achmad.baseandroid.main
+package com.achmad.baseandroid.main.search
 
 import androidx.lifecycle.viewModelScope
 import com.achmad.baseandroid.base.BaseViewModel
@@ -13,11 +13,11 @@ import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     private val githubRepository: GithubRepository
-) : BaseViewModel<MainViewModel.Intent,
-    MainViewModel.State,
-    MainViewModel.Effect>(
+) : BaseViewModel<SearchViewModel.Intent,
+    SearchViewModel.State,
+    SearchViewModel.Effect>(
     State()
 ) {
 
@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
     }
 
     data class State(
-        var query: String = "",
+        var query: String = "achmadfachrudin",
         var page: Int = 1,
         val displayItems: MutableList<User> = mutableListOf(),
         val displayState: DisplayState = DisplayState.Loading,
@@ -55,7 +55,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onSearchChanged(query: String) {
-        setState { copy(query = query) }
+        setState { copy(query = query, displayItems = mutableListOf()) }
         Timer().schedule(500) {
             searchUser()
         }
@@ -83,6 +83,7 @@ class MainViewModel @Inject constructor(
                                 setState { copy(showLoadMore = false) }
                                 setEffect(Effect.ShowToastMessage(result.error.orEmpty()))
                             } else {
+                                setEffect(Effect.ShowToastMessage(result.error.orEmpty()))
                                 setState { copy(displayState = State.DisplayState.Error) }
                             }
                         }
