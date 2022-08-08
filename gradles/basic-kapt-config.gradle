@@ -1,0 +1,4 @@
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}

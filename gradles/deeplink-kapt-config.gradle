@@ -1,0 +1,7 @@
+kapt {
+    arguments {
+        arg("deepLink.incremental", "true")
+        arg("deepLink.customAnnotations", DeeplinkDispatch.customAnnotation)
+        arg("deepLinkDoc.output", "${buildDir}/doc/deeplinks.txt")
+    }
+}
