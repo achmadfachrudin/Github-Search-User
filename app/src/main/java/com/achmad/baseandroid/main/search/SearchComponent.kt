@@ -14,29 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.achmad.feature.github.data.model.User
 
-val mockUser = User(
-    username = "achmadfachrudin",
-    name = "",
-    bio = "",
-    email = "",
-    location = "",
-    followers = 0,
-    following = 0,
-    userUrl = "",
-    avatarUrl = "https://avatars.githubusercontent.com/u/19408400?v=4",
-    repoUrl = ""
-)
-
-@Preview
 @Composable
 fun RowUser(
-    model: User = mockUser,
+    model: User,
     onItemClick: () -> Unit = {}
 ) {
     Row(
@@ -58,23 +43,10 @@ fun RowUser(
                 .align(Alignment.CenterVertically)
                 .padding(start = 16.dp),
             style = TextStyle(
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                letterSpacing = 0.sp
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             ),
             text = model.username
         )
     }
-}
-
-@Composable
-fun MessageLabel(message: String) {
-    Text(
-        style = TextStyle(
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            letterSpacing = 0.sp
-        ),
-        text = message
-    )
 }

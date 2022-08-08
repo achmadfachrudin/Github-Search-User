@@ -66,8 +66,6 @@ class SearchViewModel @Inject constructor(
             val query = viewState.query
             val page = viewState.page
 
-            setState { copy(displayState = State.DisplayState.Loading) }
-
             if (query.isNotEmpty()) {
                 githubRepository.searchUserList(query, page).collectLatest { result ->
                     when (result) {

@@ -2,4 +2,13 @@
     <string name="app_name">BaseAndroid</string>
     <string name="title_feature_user">User</string>
     <string name="title_feature_repository">Repository</string>
+
+
+    <!--User Detail-->
+    <string name="user_detail_follower">
+        <![CDATA[
+        <b>%1$d</b> Followers · <b>%2$d</b> Following
+        ]]>
+    </string>
+
 </resources>

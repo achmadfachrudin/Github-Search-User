@@ -9,16 +9,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.achmad.baseandroid.main.MessageLabel
 
 @Composable
 fun SearchScreen(
@@ -67,6 +71,7 @@ fun SearchScreen(
                     LazyColumn {
                         items(state.displayItems) { model ->
                             RowUser(model) { onItemClick(model.username) }
+                            Divider()
                         }
 
                         if (state.showLoadMore) {
@@ -81,14 +86,16 @@ fun SearchScreen(
                 }
             }
             SearchViewModel.State.DisplayState.Empty -> {
-                MessageLabel(message = "${state.query} not found")
+                MessageLabel(message = "User ${state.query} not found")
             }
             SearchViewModel.State.DisplayState.Error -> {
                 MessageLabel(message = "Oops, something wrong")
             }
             SearchViewModel.State.DisplayState.Loading -> {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth()
+                CircularProgressIndicator(
+                    modifier = Modifier.align(
+                        Alignment.CenterHorizontally
+                    )
                 )
             }
         }

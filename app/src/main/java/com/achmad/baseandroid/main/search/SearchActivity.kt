@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
-import com.achmad.baseandroid.main.UserActivity
+import com.achmad.baseandroid.main.user.UserActivity
 import com.achmad.baseandroid.theme.BaseColor
 import com.achmad.baseandroid.theme.BaseComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
