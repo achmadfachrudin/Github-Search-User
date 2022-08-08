@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         fun createIntent(
-            context: Context,
+            context: Context
         ): Intent {
             return Intent(context, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.onIntentReceived(MainViewModel.Intent.ViewCreated)
 
         configureBinding()
     }
