@@ -1,4 +1,4 @@
-package com.achmad.baseandroid.main
+package com.achmad.baseandroid.main.user
 
 import androidx.lifecycle.viewModelScope
 import com.achmad.baseandroid.base.BaseViewModel
@@ -28,7 +28,8 @@ class UserViewModel @Inject constructor(
         var username: String = "",
         var user: User? = null,
         val repositories: MutableList<Repository> = mutableListOf(),
-        val displayState: DisplayState = DisplayState.Loading
+        val displayStateUser: DisplayState = DisplayState.Loading,
+        val displayStateRepository: DisplayState = DisplayState.Loading
     ) {
         sealed class DisplayState {
             data class Error(val message: String) : DisplayState()
@@ -53,24 +54,22 @@ class UserViewModel @Inject constructor(
 
     private fun fetchUser(username: String) {
         viewModelScope.launch {
-            setState { copy(displayState = State.DisplayState.Loading) }
-
             githubRepository.fetchUser(username).collectLatest { result ->
                 when (result) {
                     ApiResult.Loading -> {
-                        setState { copy(displayState = State.DisplayState.Loading) }
+                        setState { copy(displayStateUser = State.DisplayState.Loading) }
                     }
                     is ApiResult.Error -> {
                         setState {
                             copy(
-                                displayState = State.DisplayState.Error(result.error.orEmpty())
+                                displayStateUser = State.DisplayState.Error(result.error.orEmpty())
                             )
                         }
                     }
                     is ApiResult.Success -> {
                         setState {
                             copy(
-                                displayState = State.DisplayState.Content,
+                                displayStateUser = State.DisplayState.Content,
                                 user = result.data
                             )
                         }
@@ -82,27 +81,25 @@ class UserViewModel @Inject constructor(
 
     private fun fetchRepository(username: String) {
         viewModelScope.launch {
-            setState { copy(displayState = State.DisplayState.Loading) }
-
             githubRepository.fetchRepository(username).collectLatest { result ->
                 when (result) {
                     ApiResult.Loading -> {
-                        setState { copy(displayState = State.DisplayState.Loading) }
+                        setState { copy(displayStateRepository = State.DisplayState.Loading) }
                     }
                     is ApiResult.Error -> {
                         setState {
                             copy(
-                                displayState = State.DisplayState.Error(result.error.orEmpty())
+                                displayStateRepository = State.DisplayState.Error(result.error.orEmpty())
                             )
                         }
                     }
                     is ApiResult.Success -> {
                         if (result.data.isNullOrEmpty()) {
-                            setState { copy(displayState = State.DisplayState.Empty) }
+                            setState { copy(displayStateRepository = State.DisplayState.Empty) }
                         } else {
                             setState {
                                 copy(
-                                    displayState = State.DisplayState.Content,
+                                    displayStateRepository = State.DisplayState.Content,
                                     repositories = result.data.orEmpty().toMutableList()
                                 )
                             }

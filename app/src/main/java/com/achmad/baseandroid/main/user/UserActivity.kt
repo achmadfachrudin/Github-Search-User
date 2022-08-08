@@ -1,11 +1,14 @@
-package com.achmad.baseandroid.main
+package com.achmad.baseandroid.main.user
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.achmad.baseandroid.databinding.ActivityUserBinding
+import androidx.compose.material.Surface
+import com.achmad.baseandroid.theme.BaseColor
+import com.achmad.baseandroid.theme.BaseComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,8 +29,6 @@ class UserActivity : AppCompatActivity() {
 
     private val username by lazy { intent.getStringExtra(BUNDLE_USERNAME).orEmpty() }
 
-    private lateinit var binding: ActivityUserBinding
-
     private val viewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +36,14 @@ class UserActivity : AppCompatActivity() {
 
         viewModel.onIntentReceived(UserViewModel.Intent.ViewCreated(username))
 
-        configureBinding()
-    }
-
-    private fun configureBinding() {
-        binding = ActivityUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContent {
+            BaseComposeTheme {
+                Surface(color = BaseColor.White) {
+                    UserScreen(
+                        viewModel = viewModel
+                    )
+                }
+            }
+        }
     }
 }
