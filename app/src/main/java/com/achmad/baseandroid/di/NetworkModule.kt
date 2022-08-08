@@ -1,11 +1,14 @@
 package com.achmad.baseandroid.di
 
+import android.content.Context
 import android.util.Log
 import com.achmad.baseandroid.BuildConfig
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -37,13 +40,13 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(
         headerInterceptor: HeaderInterceptor,
-        httpLoggingInterceptor: Interceptor
-//        @ApplicationContext context: Context
+        httpLoggingInterceptor: Interceptor,
+        @ApplicationContext context: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-//            .addInterceptor(ChuckerInterceptor.Builder(context).build())
+            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)

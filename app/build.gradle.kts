@@ -119,8 +119,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.github.skydoves:sandwich:1.2.1")
-//    debugImplementation("com.github.ChuckerTeam.Chucker:library:3.5.2")
-//    releaseImplementation("com.github.ChuckerTeam.Chucker:library-no-op:3.5.2")
+    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
     // Test
     testImplementation(kotlin("test"))
