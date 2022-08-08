@@ -20,7 +20,9 @@ android {
         versionName = "1.0.0"
 
         val baseUrl: String by project
+        val token: String by project
         buildConfigField("String", "BASE_URL", baseUrl)
+        buildConfigField("String", "TOKEN", token)
     }
 
     buildTypes {

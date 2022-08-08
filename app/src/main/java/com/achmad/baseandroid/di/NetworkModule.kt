@@ -19,6 +19,11 @@ import java.util.concurrent.TimeUnit
 object NetworkModule {
 
     @Provides
+    fun provideHeaderInterceptor(): HeaderInterceptor {
+        return HeaderInterceptor()
+    }
+
+    @Provides
     fun provideHttpLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor { message ->
             Log.d("API log", message)
@@ -31,10 +36,12 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
+        headerInterceptor: HeaderInterceptor,
         httpLoggingInterceptor: Interceptor
 //        @ApplicationContext context: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor)
             .addInterceptor(httpLoggingInterceptor)
 //            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .connectTimeout(15, TimeUnit.SECONDS)
