@@ -2,6 +2,7 @@ package com.achmad.baseandroid.service
 
 import androidx.annotation.WorkerThread
 import com.achmad.common.ApiResult
+import com.achmad.feature.github.data.mapper.toRepositoryList
 import com.achmad.feature.github.data.mapper.toUser
 import com.achmad.feature.github.data.mapper.toUserList
 import com.skydoves.sandwich.suspendOnError
@@ -49,6 +50,25 @@ class GithubRepository @Inject constructor(
 
         response.suspendOnSuccess {
             emit(ApiResult.Success(data.toUser()))
+        }.suspendOnError {
+            // handles error cases
+            emit(ApiResult.Error(this.toString()))
+        }.suspendOnException {
+            // handles exceptional cases
+            emit(ApiResult.Error(this.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    @WorkerThread
+    fun fetchRepository(
+        username: String
+    ) = flow {
+        emit(ApiResult.Loading)
+
+        val response = remote.fetchRepository(username)
+
+        response.suspendOnSuccess {
+            emit(ApiResult.Success(data.toRepositoryList()))
         }.suspendOnError {
             // handles error cases
             emit(ApiResult.Error(this.toString()))

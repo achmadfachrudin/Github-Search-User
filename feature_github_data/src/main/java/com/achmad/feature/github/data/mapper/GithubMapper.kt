@@ -1,23 +1,14 @@
 package com.achmad.feature.github.data.mapper
 
+import com.achmad.feature.github.data.entity.RepositoryEntity
 import com.achmad.feature.github.data.entity.SearchUserEntity
 import com.achmad.feature.github.data.entity.UserEntity
+import com.achmad.feature.github.data.model.Repository
 import com.achmad.feature.github.data.model.User
 
 fun SearchUserEntity.toUserList(): List<User> {
     return items?.map { user ->
-        User(
-            username = user.login.orEmpty(),
-            name = "",
-            bio = "",
-            email = "",
-            location = "",
-            followers = 0,
-            following = 0,
-            userUrl = user.url.orEmpty(),
-            avatarUrl = user.avatarUrl.orEmpty(),
-            repoUrl = user.repoUrl.orEmpty()
-        )
+        user.toUser()
     } ?: emptyList()
 }
 
@@ -33,5 +24,20 @@ fun UserEntity.toUser(): User {
         userUrl = url.orEmpty(),
         avatarUrl = avatarUrl.orEmpty(),
         repoUrl = repoUrl.orEmpty()
+    )
+}
+
+fun List<RepositoryEntity>.toRepositoryList(): List<Repository> {
+    return map { repository ->
+        repository.toRepository()
+    }
+}
+
+fun RepositoryEntity.toRepository(): Repository {
+    return Repository(
+        name = name.orEmpty(),
+        description = description.orEmpty(),
+        stargazersCount = stargazersCount ?: 0,
+        updatedAt = updatedAt.orEmpty()
     )
 }

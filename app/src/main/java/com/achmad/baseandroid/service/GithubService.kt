@@ -1,5 +1,6 @@
 package com.achmad.baseandroid.service
 
+import com.achmad.feature.github.data.entity.RepositoryEntity
 import com.achmad.feature.github.data.entity.SearchUserEntity
 import com.achmad.feature.github.data.entity.UserEntity
 import com.skydoves.sandwich.ApiResponse
@@ -19,4 +20,9 @@ interface GithubService {
     suspend fun fetchUser(
         @Path("username") username: String
     ): ApiResponse<UserEntity>
+
+    @GET("users/{username}/repos")
+    suspend fun fetchRepository(
+        @Path("username") username: String
+    ): ApiResponse<List<RepositoryEntity>>
 }
