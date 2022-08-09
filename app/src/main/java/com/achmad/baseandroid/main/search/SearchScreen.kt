@@ -21,6 +21,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -46,11 +47,13 @@ fun SearchScreen(
                 end = 16.dp,
                 top = 16.dp
             )
+            .testTag("search_page")
     ) {
         OutlinedTextField(
             modifier = Modifier
                 .padding(bottom = 8.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag("tag_text_field"),
             value = state.query,
             onValueChange = {
                 onSearchChanged(it)
@@ -77,7 +80,9 @@ fun SearchScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    LazyColumn {
+                    LazyColumn(
+                        Modifier.testTag("tag_lazy_column")
+                    ) {
                         items(state.displayItems) { model ->
                             RowUser(model) { onItemClick(model.username) }
                             Divider()

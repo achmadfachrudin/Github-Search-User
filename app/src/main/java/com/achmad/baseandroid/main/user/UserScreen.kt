@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.achmad.baseandroid.main.MessageLabel
 
@@ -31,6 +32,7 @@ fun UserScreen(
                 end = 16.dp,
                 top = 16.dp
             )
+            .testTag("user_page")
     ) {
         when (state.displayStateUser) {
             UserViewModel.State.DisplayState.Content -> {
