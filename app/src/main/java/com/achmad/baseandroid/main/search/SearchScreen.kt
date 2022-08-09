@@ -74,7 +74,7 @@ fun SearchScreen(
                             Divider()
                         }
 
-                        if (state.showLoadMore) {
+                        if (state.showLoadMoreLoading) {
                             item {
                                 LinearProgressIndicator(
                                     modifier = Modifier.fillMaxWidth()

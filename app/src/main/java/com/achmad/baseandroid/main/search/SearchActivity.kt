@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
                     SearchScreen(
                         viewModel = viewModel,
                         onSearchChanged = {
-                            viewModel.onIntentReceived(SearchViewModel.Intent.SearchChanged(it))
+                            viewModel.onIntentReceived(SearchViewModel.Intent.QueryChanged(it))
                         },
                         onLoadMore = {
                             viewModel.onIntentReceived(SearchViewModel.Intent.LoadMore)

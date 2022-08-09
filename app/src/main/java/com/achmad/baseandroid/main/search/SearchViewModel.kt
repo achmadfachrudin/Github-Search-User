@@ -8,9 +8,7 @@ import com.achmad.feature.github.data.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.Timer
 import javax.inject.Inject
-import kotlin.concurrent.schedule
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -23,16 +21,16 @@ class SearchViewModel @Inject constructor(
 
     sealed class Intent {
         object ViewCreated : Intent()
-        data class SearchChanged(val query: String) : Intent()
+        data class QueryChanged(val query: String) : Intent()
         object LoadMore : Intent()
     }
 
     data class State(
-        var query: String = "achmadfachrudin",
+        var query: String = "",
         var page: Int = 1,
         val displayItems: MutableList<User> = mutableListOf(),
         val displayState: DisplayState = DisplayState.Loading,
-        val showLoadMore: Boolean = false
+        val showLoadMoreLoading: Boolean = false
     ) {
         sealed class DisplayState {
             object Error : DisplayState()
@@ -49,16 +47,14 @@ class SearchViewModel @Inject constructor(
     override fun onIntentReceived(intent: Intent) {
         when (intent) {
             is Intent.ViewCreated -> searchUser()
-            is Intent.SearchChanged -> onSearchChanged(intent.query)
+            is Intent.QueryChanged -> onSearchChanged(intent.query)
             is Intent.LoadMore -> onLoadMore()
         }
     }
 
     private fun onSearchChanged(query: String) {
         setState { copy(query = query, displayItems = mutableListOf()) }
-        Timer().schedule(500) {
-            searchUser()
-        }
+        searchUser()
     }
 
     private fun searchUser(isLoadMore: Boolean = false) {
@@ -71,19 +67,18 @@ class SearchViewModel @Inject constructor(
                     when (result) {
                         ApiResult.Loading -> {
                             if (isLoadMore) {
-                                setState { copy(showLoadMore = true) }
+                                setState { copy(showLoadMoreLoading = true) }
                             } else {
                                 setState { copy(displayState = State.DisplayState.Loading) }
                             }
                         }
                         is ApiResult.Error -> {
                             if (isLoadMore) {
-                                setState { copy(showLoadMore = false) }
-                                setEffect(Effect.ShowToastMessage(result.error.orEmpty()))
+                                setState { copy(showLoadMoreLoading = false) }
                             } else {
-                                setEffect(Effect.ShowToastMessage(result.error.orEmpty()))
                                 setState { copy(displayState = State.DisplayState.Error) }
                             }
+                            setEffect(Effect.ShowToastMessage(result.error.orEmpty()))
                         }
                         is ApiResult.Success -> {
                             val newItems = viewState.displayItems
@@ -96,7 +91,7 @@ class SearchViewModel @Inject constructor(
                                     copy(
                                         displayState = State.DisplayState.Content,
                                         displayItems = newItems,
-                                        showLoadMore = false
+                                        showLoadMoreLoading = false
                                     )
                                 }
                             }
