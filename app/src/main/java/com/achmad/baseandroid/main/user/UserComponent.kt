@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -72,44 +75,59 @@ fun DetailSection(
                 )
             }
 
-            Text(
+            Row(
                 modifier = Modifier
-                    .padding(top = 8.dp),
-                style = TextStyle(
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
-                ),
-                text = annotatedHtmlString(
-                    text = stringResource(
-                        id = R.string.user_detail_follower,
-                        model.followers,
-                        model.following
-                    )
-                )
-            )
+                    .padding(top = 8.dp)
+            ) {
+                Icon(painterResource(id = R.drawable.ic_follower), "")
 
-            if (model.location.isNotEmpty()) {
                 Text(
-                    modifier = Modifier
-                        .padding(top = 8.dp),
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
                         fontSize = 14.sp
                     ),
-                    text = model.location
+                    text = annotatedHtmlString(
+                        text = stringResource(
+                            id = R.string.user_detail_follower,
+                            model.followers,
+                            model.following
+                        )
+                    )
                 )
             }
 
-            if (model.email.isNotEmpty()) {
-                Text(
+            if (model.location.isNotEmpty()) {
+                Row(
                     modifier = Modifier
-                        .padding(top = 8.dp),
-                    style = TextStyle(
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 14.sp
-                    ),
-                    text = model.email
-                )
+                        .padding(top = 8.dp)
+                ) {
+                    Icon(painterResource(id = R.drawable.ic_location), "")
+
+                    Text(
+                        style = TextStyle(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp
+                        ),
+                        text = model.location
+                    )
+                }
+            }
+
+            if (model.email.isNotEmpty()) {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                ) {
+                    Icon(painterResource(id = R.drawable.ic_email), "")
+
+                    Text(
+                        style = TextStyle(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp
+                        ),
+                        text = model.email
+                    )
+                }
             }
         }
     }
@@ -162,6 +180,8 @@ fun RowRepository(
                 modifier = Modifier
                     .padding(top = 8.dp)
             ) {
+                Icon(painterResource(id = R.drawable.ic_star), "")
+
                 Text(
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
