@@ -19,6 +19,9 @@ android {
         versionCode = 1
         versionName = "1.0.0"
 
+        testInstrumentationRunner = "com.achmad.baseandroid.HiltTestRunner"
+        testOptions.animationsDisabled = true
+
         val baseUrl: String by project
         val token: String by project
         buildConfigField("String", "BASE_URL", baseUrl)
@@ -128,4 +131,11 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.5")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    androidTestImplementation("androidx.test:core-ktx:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0")
+    androidTestImplementation("io.mockk:mockk-android:1.12.5")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.43.2")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.43.2")
 }
