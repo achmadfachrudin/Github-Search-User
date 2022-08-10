@@ -21,7 +21,7 @@ class SearchActivityTest {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
-    @get:Rule(order = 2)
+    @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<SearchActivity>()
 
     @Before
