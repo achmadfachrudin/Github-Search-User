@@ -84,10 +84,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("com.google.android.play:core-ktx:1.8.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    api("androidx.navigation:navigation-fragment-ktx:2.5.1")
-    api("androidx.navigation:navigation-ui-ktx:2.5.1")
-    api("androidx.navigation:navigation-dynamic-features-fragment:2.5.1")
-    api("androidx.navigation:navigation-compose:2.5.1")
 
     // UI
     implementation("androidx.activity:activity-ktx:1.5.1")
@@ -102,9 +98,6 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.5.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.2.0")
     implementation("io.coil-kt:coil-compose:2.1.0")
-
-    // Paging
-    implementation("androidx.paging:paging-compose:1.0.0-alpha15")
 
     // DI
     implementation("com.google.dagger:hilt-android:2.43.2")
