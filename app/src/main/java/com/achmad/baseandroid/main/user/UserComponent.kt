@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.achmad.baseandroid.R
+import com.achmad.baseandroid.core.util.DateUtil
 import com.achmad.baseandroid.theme.component.annotatedHtmlString
 import com.achmad.feature.github.data.model.Repository
 import com.achmad.feature.github.data.model.User
@@ -192,6 +193,8 @@ fun RowRepository(
                     text = model.stargazersCount.toString()
                 )
 
+                val date = DateUtil.getTimeAgo(model.updatedAt, DateUtil.yyyy_MM_dd_T_HHmmss_Z)
+
                 Text(
                     modifier = Modifier
                         .padding(start = 16.dp),
@@ -199,7 +202,7 @@ fun RowRepository(
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp
                     ),
-                    text = model.updatedAt
+                    text = "Updated $date"
                 )
             }
         }

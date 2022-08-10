@@ -1,4 +1,4 @@
-package com.achmad.baseandroid.base
+package com.achmad.baseandroid.core.base
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.

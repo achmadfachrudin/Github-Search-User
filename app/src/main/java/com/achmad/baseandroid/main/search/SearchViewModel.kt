@@ -1,7 +1,7 @@
 package com.achmad.baseandroid.main.search
 
 import androidx.lifecycle.viewModelScope
-import com.achmad.baseandroid.base.BaseViewModel
+import com.achmad.baseandroid.core.base.BaseViewModel
 import com.achmad.baseandroid.service.GithubRepository
 import com.achmad.common.ApiResult
 import com.achmad.feature.github.data.model.User

@@ -1,4 +1,4 @@
-package com.achmad.baseandroid.base
+package com.achmad.baseandroid.core.base
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
