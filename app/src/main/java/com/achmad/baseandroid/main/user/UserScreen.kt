@@ -57,7 +57,9 @@ fun UserScreen(
 
         when (state.displayStateRepository) {
             UserViewModel.State.DisplayState.Content -> {
-                LazyColumn {
+                LazyColumn(
+                    modifier = Modifier.testTag("tag_lazy_column_repositories")
+                ) {
                     items(state.repositories) { model ->
                         RowRepository(
                             state.user?.avatarUrl.orEmpty(),
